@@ -21,6 +21,7 @@ const CoinPage = () => {
 
   useEffect(() => {
     fetchCoin();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const useStyles = makeStyles((theme) => ({
     container: {

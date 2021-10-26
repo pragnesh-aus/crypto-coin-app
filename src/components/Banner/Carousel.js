@@ -42,6 +42,7 @@ const Carousel = () => {
   // called function when app load first time
   useEffect(() => {
     fetchTrendingCoins();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currency]); // pass currency every time when user changed the currency
 
   // item is coming from trending state
