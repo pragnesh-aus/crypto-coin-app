@@ -30,7 +30,7 @@ const Header = () => {
   // dark theme from Material UI
 
   const { currency, setCurrency } = CryptoState();
-  console.log(currency);
+  //console.log(currency);
   //const [currency, setCurrency] = useState();
   const darkTheme = createTheme({
     palette: {
