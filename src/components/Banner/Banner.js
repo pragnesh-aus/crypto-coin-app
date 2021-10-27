@@ -45,7 +45,7 @@ const Banner = () => {
               fontFamily: 'Montserrat',
             }}
           >
-            Get all Info about Crypto Coins
+            Top 7 trending coins on CoinGecko in the last 24 hours
           </Typography>
         </div>
         <Carousel />
