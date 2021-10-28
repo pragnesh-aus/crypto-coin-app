@@ -32,12 +32,14 @@ const CoinsTable = () => {
   const fetchCoins = async () => {
     setLoading(true);
     const { data } = await axios.get(CoinList(currency));
+    console.log(data);
 
     setCoins(data);
     setLoading(false);
   };
 
   console.log(coins);
+
   useEffect(() => {
     fetchCoins();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -56,8 +58,8 @@ const CoinsTable = () => {
   const handleSearch = () => {
     return coins.filter(
       (coin) =>
-        coin.name.toLowerCase().includes(search) ||
-        coin.symbol.toLowerCase().includes(search)
+        coin.name.toLowerCase().includes(search.toLowerCase()) ||
+        coin.symbol.toLowerCase().includes(search.toLowerCase())
     );
   };
 
@@ -100,19 +102,21 @@ const CoinsTable = () => {
               <TableHead style={{ backgroundColor: '#EEBC1D' }}>
                 <TableRow>
                   {/* head is variable */}
-                  {['Coin', 'Price', '24h Change', 'Market Cap'].map((head) => (
-                    <TableCell
-                      style={{
-                        color: 'black',
-                        fontWeight: '700',
-                        fontFamily: 'Montserrat',
-                      }}
-                      key={head}
-                      align={head === 'Coin' ? '' : 'right'}
-                    >
-                      {head}
-                    </TableCell>
-                  ))}
+                  {['#', 'Coin', 'Price', '24h Change', 'Market Cap'].map(
+                    (head) => (
+                      <TableCell
+                        style={{
+                          color: 'black',
+                          fontWeight: '700',
+                          fontFamily: 'Montserrat',
+                        }}
+                        key={head}
+                        align={head === 'Coin' ? '' : 'left'}
+                      >
+                        {head}
+                      </TableCell>
+                    )
+                  )}
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -126,6 +130,17 @@ const CoinsTable = () => {
                         className={classes.row}
                         key={row.name}
                       >
+                        <TableCell
+                          component="th"
+                          scope="row"
+                          style={{
+                            textTransform: 'uppercase',
+                            fontSize: 22,
+                            textAlign: 'left',
+                          }}
+                        >
+                          {row.market_cap_rank}
+                        </TableCell>
                         <TableCell
                           component="th"
                           scope="row"
@@ -158,12 +173,11 @@ const CoinsTable = () => {
                             </span>
                           </div>
                         </TableCell>
-                        <TableCell aligh="right">
+                        <TableCell>
                           {symbol}
                           {numberWithCommas(row?.current_price.toFixed(2))}
                         </TableCell>
                         <TableCell
-                          align="right"
                           style={{
                             color: profit > 0 ? 'rgb(14,203,129)' : 'red',
                             fontWeight: 500,
@@ -172,7 +186,7 @@ const CoinsTable = () => {
                           {profit && '+'}
                           {row.price_change_percentage_24h.toFixed(2)}%
                         </TableCell>
-                        <TableCell align="right">
+                        <TableCell>
                           {symbol}
                           {numberWithCommas(
                             row.market_cap.toString().slice(0, -6)

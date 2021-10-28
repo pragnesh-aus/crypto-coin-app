@@ -35,7 +35,7 @@ const Banner = () => {
               fontFamily: 'Montserrat',
             }}
           >
-            Crypto Coin App
+            Crypto Currency
           </Typography>
           <Typography
             variant="subtitle2"

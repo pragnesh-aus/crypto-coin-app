@@ -1,7 +1,12 @@
-import { LinearProgress, makeStyles, Typography } from '@material-ui/core';
+import {
+  Button,
+  LinearProgress,
+  makeStyles,
+  Typography,
+} from '@material-ui/core';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import CoinInfo from '../components/CoinInfo';
 import { SingleCoin } from '../config/api';
 import { CryptoState } from '../CryptoContext';
@@ -12,17 +17,24 @@ const CoinPage = () => {
   const { id } = useParams();
   const [coin, setCoin] = useState();
   const { currency, symbol } = CryptoState();
-
-  const fetchCoin = async () => {
-    const { data } = await axios.get(SingleCoin(id));
-    setCoin(data);
-  };
-  console.log(coin);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetchCoin();
+    // console.log('id: ' + id);
+    axios
+      .get(SingleCoin(id))
+      .then((response) => {
+        console.log('setcoin' + response.data);
+        //setCoin(response.data);
+        setCoin(response.data);
+      })
+      .catch((error) => {
+        setError(error);
+        console.log(error.response.data.error);
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   const useStyles = makeStyles((theme) => ({
     container: {
       display: 'flex',
@@ -71,7 +83,43 @@ const CoinPage = () => {
     },
   }));
   const classes = useStyles();
+  // show error if api request get failed
+  if (error)
+    return (
+      <Typography
+        variant="h3"
+        style={{
+          fontFamily: 'Montserrat',
+          textAlign: 'center',
+          marginTop: '20%',
+          color: 'gold',
+        }}
+      >
+        {' '}
+        {'Invalid API Request: ' + error.response.data.error}
+        <div variant="h4">
+          <Button variant="contained" color="primary">
+            <NavLink
+              to="/"
+              style={{
+                fontFamily: 'Montserrat',
+                textAlign: 'center',
+              }}
+            >
+              {' '}
+              Go Back to Homepage{' '}
+            </NavLink>
+          </Button>
+        </div>
+      </Typography>
+    );
+  console.log('coin value: ' + coin);
   if (!coin) return <LinearProgress style={{ backgroundColor: 'gold' }} />;
+
+  //if (!coin) return 'No coin';
+  //console.log('Error message: ' + error);
+  //if (err) return `Error: ${err.message}`;
+
   return (
     <div className={classes.container}>
       <div className={classes.sidebar}>

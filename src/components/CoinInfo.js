@@ -20,6 +20,7 @@ const CoinInfo = ({ coin }) => {
 
   const fetchHistoricalData = async () => {
     const { data } = await axios.get(HistoricalChart(coin.id, days, currency));
+
     setHistoricalData(data.prices);
   };
   useEffect(() => {
