@@ -32,6 +32,7 @@ const CoinPage = () => {
         setError(error);
         console.log(error.response.data.error);
       });
+    document.title = 'Crypto | Coin Information';
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -97,6 +98,7 @@ const CoinPage = () => {
       >
         {' '}
         {'Invalid API Request: ' + error.response.data.error}
+        {console.log('Invalid API Request: ' + error.response.data.error)}
         <div variant="h4">
           <Button variant="contained" color="primary">
             <NavLink

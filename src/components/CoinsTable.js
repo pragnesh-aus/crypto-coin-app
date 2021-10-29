@@ -41,6 +41,7 @@ const CoinsTable = () => {
   console.log(coins);
 
   useEffect(() => {
+    document.title = 'Crypto | Homepage';
     fetchCoins();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currency]);
