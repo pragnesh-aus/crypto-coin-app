@@ -4,6 +4,7 @@ import './App.css';
 import Error404 from './components/Error404';
 import Header from './components/Header';
 import CoinPage from './Pages/CoinPage';
+
 import Homepage from './Pages/Homepage';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Switch>
           <Route path="/" component={Homepage} exact />
           <Route path="/coins/:id" component={CoinPage} />
+
           <Route component={Error404} />
         </Switch>
       </div>

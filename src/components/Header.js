@@ -12,13 +12,19 @@ import {
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { CryptoState } from '../CryptoContext';
-
+import { Offline, Online } from 'react-detect-offline';
+import { OfflineText, polling } from '../config/constants';
 const useStyles = makeStyles(() => ({
   title: {
     flex: 1,
     color: 'gold',
     fontFamily: 'Montserrat',
     fontWeight: 'bold',
+    cursor: 'pointer',
+  },
+  global: {
+    flex: 2,
+    fontFamily: 'Montserrat',
     cursor: 'pointer',
   },
 }));
@@ -52,6 +58,46 @@ const Header = () => {
               variant="h6"
             >
               Crypto Coin App
+            </Typography>
+
+            <Typography
+              variant="h6"
+              style={{
+                fontFamily: 'Montserrat',
+                marginRight: '1%',
+                marginLeft: '1%',
+              }}
+            >
+              CoinGecko API Status :{' '}
+            </Typography>
+            <Typography
+              variant="h6"
+              style={{
+                fontFamily: 'Montserrat',
+                marginRight: '1%',
+                fontWeight: 'bold',
+              }}
+            >
+              <Online polling={polling}>
+                <span
+                  style={{
+                    fontFamily: 'Montserrat',
+                    color: 'green',
+                  }}
+                >
+                  Online
+                </span>
+              </Online>
+              <Offline polling={polling}>
+                <span
+                  style={{
+                    fontFamily: 'Montserrat',
+                    color: 'red',
+                  }}
+                >
+                  {OfflineText}
+                </span>
+              </Offline>
             </Typography>
             <Select
               variant="outlined"

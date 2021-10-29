@@ -24,7 +24,7 @@ const CoinPage = () => {
     axios
       .get(SingleCoin(id))
       .then((response) => {
-        console.log('setcoin' + response.data);
+        console.log('setcoin' + JSON.stringify(response.data));
         //setCoin(response.data);
         setCoin(response.data);
       })
@@ -176,6 +176,33 @@ const CoinPage = () => {
               M
             </Typography>
           </span>
+
+          {coin ? (
+            <Typography
+              style={{
+                fontFamily: 'Montserrat',
+                textAlign: 'center',
+                marginBottom: '10%',
+              }}
+            >
+              <div variant="h4">
+                <Button variant="contained" color="primary">
+                  <NavLink
+                    to="/"
+                    style={{
+                      fontFamily: 'Montserrat',
+                      textAlign: 'center',
+                      textTransform: 'none',
+                    }}
+                  >
+                    Go Back to Homepage
+                  </NavLink>
+                </Button>
+              </div>
+            </Typography>
+          ) : (
+            ''
+          )}
         </div>
       </div>
       {/* chart */}
